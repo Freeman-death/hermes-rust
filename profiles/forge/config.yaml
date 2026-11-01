@@ -1,0 +1,346 @@
+_config_version: 52
+agent:
+  max_turns: 500
+  personalities: {}
+  reasoning_effort: medium
+  verbose: false
+browser:
+  cloud_provider: nous
+  inactivity_timeout: 120
+  use_real_profile: true
+code_execution:
+  max_tool_calls: 50
+  timeout: 300
+command_allowlist:
+  - script execution via -e/-c flag
+compression:
+  checkpoint_required: false
+  codex_app_server_auto: native
+  codex_gpt55_autoraise: true
+  codex_responses_native: false
+  enabled: true
+  idle_compact_after_seconds: 0
+  max_attempts: 3
+  min_tail_user_messages: 1
+  proactive_prune_min_reclaim_tokens: 4096
+  proactive_prune_min_result_chars: 8000
+  proactive_prune_tokens: 0
+  progress_notices: false
+  protect_first_n: 3
+  protect_last_n: 20
+  target_ratio: 0.2
+  threshold: 0.5
+database:
+  journal_mode: wal
+delegation:
+  max_iterations: 250
+display:
+  background_process_notifications: concise
+  bell_on_complete: false
+  busy_ack_detail: true
+  busy_input_mode: interrupt
+  cleanup_progress: false
+  compact: false
+  interim_assistant_messages: true
+  long_running_notifications: true
+  show_reasoning: false
+  skin: pirate
+  streaming: true
+  tool_progress: all
+gateway:
+  delivery_ledger: true
+  loop_watchdog: true
+  loop_watchdog_max_strikes: 3
+  loop_watchdog_probe_interval_s: 30
+  loop_watchdog_probe_timeout_s: 10
+  max_inbound_media_bytes: 134217728
+  media_delivery_allow_dirs: []
+  message_timestamps:
+    enabled: false
+  platform_connect_timeout: 30
+  respawn_storm:
+    max_starts: 5
+    window_seconds: 120
+  restart_loop_guard:
+    max_gap_seconds: 300
+    max_restarts: 3
+    window_seconds: 60
+  scale_to_zero:
+    idle_timeout_minutes: 2
+  signal_interrupt_grace_timeout: 1
+  startup_watchdog: true
+  startup_watchdog_timeout_seconds: 300
+  strict: false
+  trust_recent_files: true
+  trust_recent_files_seconds: 600
+  write_sessions_json: true
+group_sessions_per_user: true
+image_gen:
+  provider: nous
+kanban:
+  review_dispatch: true
+known_builtin_toolsets:
+  cli:
+    - browser
+    - clarify
+    - code_execution
+    - computer_use
+    - connections
+    - context_engine
+    - cronjob
+    - delegation
+    - file
+    - homeassistant
+    - image_gen
+    - kanban
+    - memory
+    - session_search
+    - skills
+    - spotify
+    - stt
+    - terminal
+    - todo
+    - tts
+    - video
+    - video_gen
+    - vision
+    - web
+    - x_search
+    - yuanbao
+known_plugin_toolsets:
+  cli:
+    - a2a
+    - spotify
+  acp:
+    - homeassistant
+  webhook:
+    - homeassistant
+memory:
+  memory_char_limit: 2200
+  memory_enabled: true
+  nudge_interval: 10
+  user_char_limit: 1375
+  user_profile_enabled: true
+model:
+  base_url: https://coding.dashscope.aliyuncs.com/v1
+  default: qwen3.7-plus
+  provider: alibaba-coding-plan-cn
+  api_mode: chat_completions
+onboarding:
+  seen:
+    busy_input_prompt: true
+    openclaw_residue_cleanup: true
+    tool_progress_prompt: true
+platform_toolsets:
+  cli:
+    - a2a
+    - browser
+    - clarify
+    - code_execution
+    - computer_use
+    - connections
+    - cronjob
+    - delegation
+    - file
+    - homeassistant
+    - image_gen
+    - kanban
+    - memory
+    - session_search
+    - skills
+    - spotify
+    - terminal
+    - todo
+    - tts
+    - video
+    - video_gen
+    - vision
+    - web
+    - x_search
+  google_chat:
+    - hermes-google_chat
+  homeassistant:
+    - hermes-homeassistant
+  qqbot:
+    - hermes-qqbot
+  signal:
+    - hermes-signal
+  slack:
+    - hermes-slack
+  teams:
+    - hermes-teams
+  telegram:
+    - hermes-telegram
+  whatsapp:
+    - hermes-whatsapp
+  yuanbao:
+    - hermes-yuanbao
+prompt_caching:
+  cache_ttl: 5m
+providers:
+  groq:
+    api: https://api.groq.com/openai/v1
+    default_model: openai/gpt-oss-120b
+    env_var: GROQ_API_KEY
+    models:
+      - openai/gpt-oss-120b
+      - openai/gpt-oss-20b
+      - qwen/qwen3.8-27b
+      - meta-llama/llama-4-scout-17b-16e-instruct
+      - meta-llama/llama-4-maverick-17b-128e-instruct
+    name: Groq
+  ollama-launch:
+    api: http://127.0.0.1:11434/v1
+    default_model: qwen3.5:4b-mlx
+    models:
+      - qwen3.5:4b-mlx
+      - qwen3.5:2b
+      - qwen3.5:9b-mlx
+      - gemma4:12b-mlx
+      - ministral-3:8b
+      - vrozax1337/ministral-3-8b-mlx:latest
+      - ornith-1.5:9b
+      - gemma4:e4b-mlx
+      - nouscoder-14b:latest
+      - qwen3.5:latest
+      - ornith:latest
+      - SetneufPT/Qwopus3.5-9B-Coder-MTP_Q4_64k_16GB-GPU:latest
+      - kwangsuklee/Qwen3.5-9B-Claude-4.6-Opus-Reasoning-Distilled-GGUF:latest
+      - rafw007/qwen35-claude-coder:9b
+      - ertghiu256/qwen3-4b-code-reasoning:latest
+    name: Ollama
+  openrouter:
+    api: https://openrouter.ai/api/v1
+    default_model: nvidia/nemotron-3-ultra:free
+    env_var: OPENROUTER_API_KEY
+    models:
+      - nvidia/nemotron-3-ultra:free
+      - nvidia/nemotron-3-super:free
+      - allenai/kimi-k2:free
+      - qwen/qwen3-coder-480b-a35b-instruct:free
+      - google/gemma-4-26b-beinggentle:free
+      - google/gemma-4-26b-it:free
+    name: OpenRouter
+proxy:
+  enabled: true
+runtime:
+  nofile_soft_limit: 4096
+session_reset:
+  at_hour: 4
+  idle_minutes: 1440
+  mode: none
+skills:
+  creation_nudge_interval: 15
+  disabled:
+    - airtable
+    - apple-notes
+    - apple-reminders
+    - architecture-diagram
+    - arxiv
+    - ascii-video
+    - baoyu-infographic
+    - blocked-page-recovery
+    - box
+    - claude-code
+    - claude-design
+    - codebase-inspection
+    - codex
+    - finish-session
+    - hermes-agent-skill-authoring
+    - hermes-setup-macos
+    - local-first-workflow
+    - meeting-action-items
+    - notion
+    - product-price-monitor
+    - simplify-code
+    - songwriting-and-ai-music
+    - spike
+    - systematic-debugging
+    - teams-meeting-pipeline
+    - test-driven-development
+    - weekly-review-planning
+    - xurl
+    - telegram-setup
+    - findmy
+    - imessage
+    - design-md
+    - humanizer
+    - manim-video
+    - p5js
+    - email-inbox-triage
+    - himalaya
+    - gif-search
+    - songsee
+    - youtube-content
+    - obsidian
+    - document-to-action-items
+    - docx
+    - google-workspace
+    - maps
+    - pdf
+    - powerpoint
+    - xlsx
+    - competitor-news-monitor
+    - llm-wiki
+    - rss-feeds
+    - reddit-reading
+    - social-media-workflow
+    - inspecting-hermes-desktop-dom
+streaming:
+  enabled: false
+stt:
+  enabled: true
+  language: en
+  local:
+    model: base
+  openai:
+    language: ""
+    model: whisper-1
+telemetry:
+  shared_metrics:
+    enabled: false
+terminal:
+  backend: local
+  container_cpu: 1
+  container_disk: 51200
+  container_memory: 5120
+  container_persistent: true
+  cwd: .
+  docker_mount_cwd_to_workspace: false
+  home_mode: auto
+  lifetime_seconds: 300
+  timeout: 180
+tool_loop_guardrails:
+  hard_stop_after:
+    exact_failure: 5
+    idempotent_no_progress: 5
+    same_tool_failure: 8
+  hard_stop_enabled: false
+  warn_after:
+    exact_failure: 2
+    idempotent_no_progress: 2
+    same_tool_failure: 3
+  warnings_enabled: true
+toolsets:
+  - hermes-cli
+  - web
+tts:
+  provider: nous
+updates:
+  backup_keep: 5
+  non_interactive_local_changes: stash
+  pre_update_backup: false
+web:
+  backend: nous
+approvals:
+  mode: "manual"
+_left_core_scoped:
+  - homeassistant
+plugins:
+  enabled:
+    - homeassistant
+    - spotify
+  disabled: []
+_left_core_installed:
+  - homeassistant
+  - spotify

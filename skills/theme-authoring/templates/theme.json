@@ -1,0 +1,12 @@
+{
+  "$schema": "https://zed.dev/schema/themes/v0.2.0.json",
+  "name": "My Theme",
+  "author": "You",
+  "themes": [
+    {
+      "name": "My Theme",
+      "appearance": "dark",
+      "style": {}
+    }
+  ]
+}

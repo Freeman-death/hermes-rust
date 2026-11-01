@@ -1,0 +1,232 @@
+_config_version: 52
+agent:
+  max_turns: 500
+  personalities: {}
+  reasoning_effort: medium
+  verbose: false
+browser:
+  cloud_provider: nous
+  inactivity_timeout: 120
+code_execution:
+  max_tool_calls: 50
+  timeout: 300
+compression:
+  checkpoint_required: false
+  codex_app_server_auto: native
+  codex_gpt55_autoraise: true
+  codex_responses_native: false
+  enabled: true
+  idle_compact_after_seconds: 0
+  max_attempts: 3
+  min_tail_user_messages: 1
+  proactive_prune_min_reclaim_tokens: 4096
+  proactive_prune_min_result_chars: 8000
+  proactive_prune_tokens: 0
+  progress_notices: false
+  protect_first_n: 3
+  protect_last_n: 20
+  target_ratio: 0.2
+  threshold: 0.5
+database:
+  journal_mode: wal
+delegation:
+  max_iterations: 250
+display:
+  background_process_notifications: concise
+  bell_on_complete: false
+  busy_ack_detail: true
+  busy_input_mode: interrupt
+  cleanup_progress: false
+  compact: false
+  interim_assistant_messages: true
+  long_running_notifications: true
+  show_reasoning: false
+  skin: pirate
+  streaming: true
+  tool_progress: all
+gateway:
+  api_server:
+    max_concurrent_runs: 10
+  delivery_ledger: true
+  loop_watchdog: true
+  loop_watchdog_max_strikes: 3
+  loop_watchdog_probe_interval_s: 30
+  loop_watchdog_probe_timeout_s: 10
+  max_inbound_media_bytes: 134217728
+  media_delivery_allow_dirs: []
+  message_timestamps:
+    enabled: false
+  platform_connect_timeout: 30
+  respawn_storm:
+    max_starts: 5
+    window_seconds: 120
+  restart_loop_guard:
+    max_gap_seconds: 300
+    max_restarts: 3
+    window_seconds: 60
+  scale_to_zero:
+    idle_timeout_minutes: 2
+  signal_interrupt_grace_timeout: 1
+  startup_watchdog: true
+  startup_watchdog_timeout_seconds: 300
+  strict: false
+  trust_recent_files: true
+  trust_recent_files_seconds: 600
+  write_sessions_json: true
+group_sessions_per_user: true
+image_gen:
+  provider: nous
+kanban:
+  review_dispatch: true
+memory:
+  memory_char_limit: 2200
+  memory_enabled: true
+  nudge_interval: 10
+  user_char_limit: 1375
+  user_profile_enabled: true
+model:
+  api_key: ollama
+  base_url: http://127.0.0.1:11434/v1
+  default: qwen3.5:4b-mlx
+  provider: ollama-launch
+onboarding:
+  seen:
+    openclaw_residue_cleanup: true
+    busy_input_prompt: true
+    profile_build_offered: true
+platform_toolsets:
+  cli:
+    - hermes-cli
+  google_chat:
+    - hermes-google_chat
+  homeassistant:
+    - hermes-homeassistant
+  qqbot:
+    - hermes-qqbot
+  signal:
+    - hermes-signal
+  slack:
+    - hermes-slack
+  teams:
+    - hermes-teams
+  telegram:
+    - hermes-telegram
+  whatsapp:
+    - hermes-whatsapp
+  yuanbao:
+    - hermes-yuanbao
+prompt_caching:
+  cache_ttl: 5m
+providers:
+  ollama-launch:
+    api: http://127.0.0.1:11434/v1
+    default_model: qwen3.5:4b-mlx
+    models:
+      - qwen3.5:4b-mlx
+      - qwen3.5:2b
+      - qwen3.5:9b-mlx
+      - gemma4:12b-mlx
+      - ministral-3:8b
+      - vrozax1337/ministral-3-8b-mlx:latest
+      - ornith-1.5:9b
+      - gemma4:e4b-mlx
+      - nouscoder-14b:latest
+      - qwen3.5:latest
+      - ornith:latest
+      - SetneufPT/Qwopus3.5-9B-Coder-MTP_Q4_64k_16GB-GPU:latest
+      - kwangsuklee/Qwen3.5-9B-Claude-4.6-Opus-Reasoning-Distilled-GGUF:latest
+      - rafw007/qwen35-claude-coder:9b
+      - ertghiu256/qwen3-4b-code-reasoning:latest
+    name: Ollama
+runtime:
+  nofile_soft_limit: 4096
+session_reset:
+  at_hour: 4
+  idle_minutes: 1440
+  mode: none
+skills:
+  creation_nudge_interval: 15
+streaming:
+  enabled: false
+stt:
+  enabled: true
+  language: en
+  local:
+    model: base
+  openai:
+    language: ''
+    model: whisper-1
+telemetry:
+  shared_metrics:
+    enabled: false
+terminal:
+  backend: local
+  container_cpu: 1
+  container_disk: 51200
+  container_memory: 5120
+  container_persistent: true
+  cwd: .
+  docker_mount_cwd_to_workspace: false
+  home_mode: auto
+  lifetime_seconds: 300
+  timeout: 180
+tool_loop_guardrails:
+  hard_stop_after:
+    exact_failure: 5
+    idempotent_no_progress: 5
+    same_tool_failure: 8
+  hard_stop_enabled: false
+  warn_after:
+    exact_failure: 2
+    idempotent_no_progress: 2
+    same_tool_failure: 3
+  warnings_enabled: true
+toolsets:
+  - hermes-cli
+  - web
+tts:
+  provider: nous
+updates:
+  backup_keep: 5
+  non_interactive_local_changes: stash
+  pre_update_backup: false
+web:
+  backend: nous
+
+# ── Security ──────────────────────────────────────────────────────────
+# Secret redaction is ON by default — strings that look like API keys,
+# tokens, and passwords are masked in tool output, logs, and chat
+# responses before the model or user ever sees them. Set redact_secrets
+# to false to disable (e.g. when developing the redactor itself).
+# tirith pre-exec scanning is enabled by default when the tirith binary
+# is available. Configure via security.tirith_* keys or env vars
+# (TIRITH_ENABLED, TIRITH_BIN, TIRITH_TIMEOUT, TIRITH_FAIL_OPEN).
+#
+# security:
+#   redact_secrets: true
+#   tirith_enabled: true
+#   tirith_path: "tirith"
+#   tirith_timeout: 5
+#   tirith_fail_open: true
+
+# ── Fallback Model ────────────────────────────────────────────────────
+# Automatic provider failover when primary is unavailable.
+# Uncomment and configure to enable. Triggers on rate limits (429),
+# overload (529), service errors (503), or connection failures.
+#
+# Supported providers:
+#   openrouter   (OPENROUTER_API_KEY)  — routes to any model
+#   openai-codex (OAuth — hermes auth) — OpenAI Codex
+#   nous         (OAuth — hermes auth) — Nous Portal
+#   zai          (ZAI_API_KEY)         — Z.AI / GLM
+#   kimi-coding  (KIMI_API_KEY)        — Kimi / Moonshot
+#   kimi-coding-cn (KIMI_CN_API_KEY)   — Kimi / Moonshot (China)
+#   minimax      (MINIMAX_API_KEY)     — MiniMax
+#   minimax-cn   (MINIMAX_CN_API_KEY)  — MiniMax (China)
+#   bedrock      (AWS IAM / boto3)     — AWS Bedrock (Converse API)
+#
+# For custom OpenAI-compatible endpoints, add base_url and key_env.
+#
+# fallback_model:
+#   provider: openrouter
+#   model: anthropic/claude-sonnet-4

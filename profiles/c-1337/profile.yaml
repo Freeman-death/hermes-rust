@@ -1,0 +1,12 @@
+description: '1337 C coding assistant: project work, memory, data structures, algorithms
+  — focused solely on C'
+description_auto: false
+ui_meta:
+  hermes-bots:
+    shape: blobatar
+    color: hsl(80 68% 58%)
+    imageKind: shape
+    title: 1337_darling
+    custom: true
+_ui_meta_revisions:
+  hermes-bots: 1

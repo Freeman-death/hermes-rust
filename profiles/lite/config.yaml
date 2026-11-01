@@ -1,0 +1,259 @@
+_config_version: 52
+
+# ── lite: minimal local Qwen — file explorer, computer control, bot trigger ──
+model:
+  base_url: http://127.0.0.1:11434/v1
+  default: qwen3.5:4b-mlx
+  provider: ollama-launch
+
+providers:
+  ollama-launch:
+    api: http://127.0.0.1:11434/v1
+    default_model: qwen3.5:4b-mlx
+    models:
+      - qwen3.5:2b
+      - qwen3.5:4b-mlx
+      - qwen3.5:9b-mlx
+      - gemma4:e4b-mlx
+    name: Ollama
+
+fallback_model:
+  provider: ollama-launch
+  model: gemma4:e4b-mlx
+
+toolsets:
+  - hermes-cli
+  - web
+
+platform_toolsets:
+  cli:
+    - file
+    - terminal
+    - code_execution
+    - clarify
+    - delegation
+    - skills
+    - todo
+    - computer_use
+    - vision
+  telegram:
+    - hermes-telegram
+
+database:
+  journal_mode: wal
+
+runtime:
+  nofile_soft_limit: 4096
+
+agent:
+  max_turns: 80
+  personalities: {}
+  reasoning_effort: low
+  verbose: false
+
+terminal:
+  backend: local
+  cwd: .
+  timeout: 120
+  home_mode: auto
+  container_cpu: 1
+  container_memory: 2048
+  container_disk: 10240
+  container_persistent: true
+  docker_mount_cwd_to_workspace: false
+  lifetime_seconds: 120
+
+display:
+  compact: true
+  busy_input_mode: interrupt
+  bell_on_complete: false
+  show_reasoning: false
+  background_process_notifications: concise
+  streaming: true
+  skin: pirate
+  interim_assistant_messages: true
+  busy_ack_detail: false
+  cleanup_progress: false
+  long_running_notifications: false
+  tool_progress: minimal
+
+compression:
+  enabled: true
+  checkpoint_required: false
+  progress_notices: false
+  threshold: 0.5
+  target_ratio: 0.15
+  protect_last_n: 5
+  min_tail_user_messages: 1
+  max_attempts: 2
+  proactive_prune_tokens: 0
+  proactive_prune_min_result_chars: 2000
+  proactive_prune_min_reclaim_tokens: 1024
+  protect_first_n: 2
+  codex_gpt55_autoraise: true
+  codex_app_server_auto: native
+  codex_responses_native: false
+  idle_compact_after_seconds: 0
+
+prompt_caching:
+  cache_ttl: 5m
+
+memory:
+  memory_enabled: false
+  user_profile_enabled: false
+
+delegation:
+  max_iterations: 25
+
+skills:
+  creation_nudge_interval: 15
+  disabled:
+    - airtable
+    - apple-notes
+    - architecture-diagram
+    - arxiv
+    - ascii-video
+    - baoyu-infographic
+    - blocked-page-recovery
+    - box
+    - claude-code
+    - claude-design
+    - codebase-inspection
+    - codex
+    - computer-use
+    - cron-setup-guide
+    - document-to-action-items
+    - docx
+    - email
+    - email-inbox-triage
+    - finish-session
+    - gif-search
+    - github-saas-workflow
+    - himalaya
+    - hermes-agent
+    - hermes-agent-skill-authoring
+    - hermes-setup-macos
+    - local-first-workflow
+    - manim-video
+    - meeting-action-items
+    - notion
+    - opencode
+    - popular-web-designs
+    - powerpoint
+    - product-price-monitor
+    - p5js
+    - simplify-code
+    - songwriting-and-ai-music
+    - songsee
+    - spike
+    - software-builder
+    - social-media-workflow
+    - systematic-debugging
+    - teams-meeting-pipeline
+    - test-driven-development
+    - xlsx
+    - youtube-content
+    - weekly-review-planning
+    - xurl
+    - autonomous-ai-agents
+    - design-md
+    - humanizer
+    - maps
+    - pdf
+    - reddit-reading
+    - rss-feeds
+    - competitor-news-monitor
+    - grounded-citations
+    - llm-wiki
+    - coding-workflow-macos
+    - dogfood
+    - inspecting-hermes-desktop-dom
+    - node-inspect-debugger
+    - project-planning-macos
+    - python-debugpy
+    - requesting-code-review
+    - findmy
+    - imessage
+    - hermes-gateway-guard
+    - session_search
+    - todo_list
+    - obsidian-vault-workflow
+
+gateway:
+  signal_interrupt_grace_timeout: 1
+  delivery_ledger: true
+  platform_connect_timeout: 30
+  loop_watchdog: true
+  loop_watchdog_probe_interval_s: 30
+  loop_watchdog_probe_timeout_s: 10
+  loop_watchdog_max_strikes: 3
+  startup_watchdog: true
+  startup_watchdog_timeout_seconds: 300
+  write_sessions_json: true
+  scale_to_zero:
+    idle_timeout_minutes: 2
+  restart_loop_guard:
+    max_restarts: 3
+    window_seconds: 60
+    max_gap_seconds: 300
+  respawn_storm:
+    max_starts: 5
+    window_seconds: 120
+  message_timestamps:
+    enabled: false
+  max_inbound_media_bytes: 134217728
+  strict: false
+  media_delivery_allow_dirs: []
+  trust_recent_files: true
+  trust_recent_files_seconds: 600
+  api_server:
+    max_concurrent_runs: 10
+  multiplex_profiles: true
+
+browser:
+  inactivity_timeout: 120
+  cloud_provider: nous
+
+code_execution:
+  max_tool_calls: 15
+  timeout: 60
+
+onboarding:
+  seen:
+    busy_input_prompt: true
+    openclaw_residue_cleanup: true
+    tool_progress_prompt: true
+
+telemetry:
+  shared_metrics:
+    enabled: false
+
+updates:
+  pre_update_backup: false
+  backup_keep: 5
+  non_interactive_local_changes: stash
+
+proxy:
+  enabled: true
+
+stt:
+  enabled: false
+
+tts:
+  provider: nous
+
+image_gen:
+  provider: nous
+
+web:
+  backend: nous
+
+group_sessions_per_user: true
+
+session_reset:
+  at_hour: 4
+  idle_minutes: 1440
+  mode: none
+
+streaming:
+  enabled: false

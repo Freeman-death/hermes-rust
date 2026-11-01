@@ -1,0 +1,16 @@
+description: 'Hackathon coding partner: builds open-source AI-centric projects fast.'
+description_auto: false
+previous_names:
+  - hackathon
+ui_meta:
+  hermes-bots:
+    groups:
+      - hackathon
+    group: hackathon
+    shape: hexagon
+    color: hsl(111 68% 58%)
+    imageKind: shape
+    title: ''
+    custom: true
+_ui_meta_revisions:
+  hermes-bots: 2

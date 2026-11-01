@@ -1,0 +1,22 @@
+# PDF → text extraction
+
+When a subject or document is provided as a PDF and you need its text:
+
+1. Check if `pdftotext` exists in the system: `which pdftotext`.
+2. If missing (common in restricted environments), use Python:
+   ```bash
+   python3 -c "
+   from pypdf import PdfReader
+   r = PdfReader('/path/to/file.pdf')
+   text = '\n'.join((p.extract_text() or '') for p in r.pages)
+   open('/tmp/out.txt', 'w').write(text)
+   print('chars:', len(text))
+   "
+   ```
+3. Re-run the command; the text is now in `/tmp/out.txt` (or wherever you wrote it).
+4. Copy the text to the required location with the `.txt` extension.
+5. If the PDF has embedded PDFs (Form XObjects), `pypdf` still extracts text from the visible pages — it does not need to decode the embedded files.
+
+### References
+- `pypdf` — Pure-Python PDF library, installable via `pip3 install pypdf`.
+- `pdftotext` (poppler-utils) — the standard CLI alternative; may be absent on macOS.
