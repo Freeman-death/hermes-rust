@@ -5,7 +5,7 @@ Hermes Rust is a Rust rewrite of Hermes Agent — a local-first, privacy-conscio
 ## One-Line Install
 
 ```bash
-curl -sSL https://raw.githubusercontent.com/Freeman-death/hermes-rust/main/install-hermes-rust.sh | bash
+curl -sSL https://raw.githubusercontent.com/AyoubMzian-Dev/hermes-rust/main/install-hermes-rust.sh | bash
 ```
 
 This script will:
