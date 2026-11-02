@@ -120,10 +120,17 @@ step_3_build() {
 step_4_setup_profiles() {
     log_info "Step 4: Setting up profiles..."
 
+    # Clone setup repo if not present
+    if [[ ! -d "$SETUP_DIR" ]]; then
+        log_info "Setup directory not found. Cloning from repo..."
+        git clone "$HERMES_REPO" "$SETUP_DIR"
+        log_success "Setup directory cloned."
+    fi
+
     # Check if the setup directory exists
     if [[ ! -d "$SETUP_DIR" ]]; then
         log_warn "Setup directory not found at $SETUP_DIR"
-        log_warn "Please run the export script or download it from the repo."
+        log_warn "Please download the setup from the repo."
         read -p "Continue without profile setup? (y/N): " -n 1 -r
         echo
         if [[ ! $REPLY =~ ^[Yy]$ ]]; then
