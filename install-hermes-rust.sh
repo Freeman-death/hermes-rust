@@ -19,6 +19,7 @@ set -euo pipefail
 
 #--- Configuration -------------------------------------------------------------
 HERMES_REPO="https://github.com/AyoubMzian-Dev/hermes-rust.git"
+HERMES_RUST_REPO="https://github.com/Lumio-Research/hermes-agent-rs.git"
 HERMES_HOME="${HERMES_HOME:-$HOME/.hermes}"
 SETUP_DIR="${HERMES_SETUP_DIR:-$HOME/Hermes-setup}"
 CRAFTS_DIR="${HOME}/Crafts"
@@ -103,15 +104,37 @@ step_2_rust() {
 #--- Step 3: Clone and build hermes-rs-test -------------------------------------
 
 step_3_build() {
-    log_info "Step 3: Setting up profiles (no Rust build needed)..."
-    log_warn "Rust source is not included in this setup repo."
-    log_warn "To build Hermes Rust from source, clone the Rust source repo separately"
-    log_warn "and run: cargo build --release -p hermes-cli"
-    log_warn "Then copy the binary to $BIN_DIR/hermes"
-    if [[ -f "$CRAFTS_DIR/hermes-rs-test/target/release/hermes" ]]; then
-        log_success "Pre-built binary found at $CRAFTS_DIR/hermes-rs-test/target/release/hermes"
+    log_info "Step 3: Cloning and building Hermes Rust..."
+
+    # Clone the Rust source repo
+    if [[ ! -d "$CRAFTS_DIR/hermes-rs-test" ]]; then
+        mkdir -p "$CRAFTS_DIR"
+        log_info "Cloning hermes-agent-rs from GitHub..."
+        git clone "$HERMES_RUST_REPO" "$CRAFTS_DIR/hermes-rs-test"
+        log_success "Repository cloned."
     else
-        log_warn "No pre-built binary found. Skipping build step."
+        log_info "Repository already exists. Pulling latest changes..."
+        cd "$CRAFTS_DIR/hermes-rs-test"
+        git pull origin main
+        cd - > /dev/null
+    fi
+
+    # Build the project
+    log_info "Building hermes (this may take 5-15 minutes)..."
+    cd "$CRAFTS_DIR/hermes-rs-test"
+
+    cargo build --release -p hermes-cli
+    cd - > /dev/null
+
+    if [[ -f "$CRAFTS_DIR/hermes-rs-test/target/release/hermes" ]]; then
+        log_success "Hermes binary built successfully."
+        mkdir -p "$BIN_DIR"
+        cp "$CRAFTS_DIR/hermes-rs-test/target/release/hermes" "$BIN_DIR/hermes"
+        chmod +x "$BIN_DIR/hermes"
+        log_success "Binary installed to $BIN_DIR/hermes"
+    else
+        log_error "Build failed. Check your internet connection and try again."
+        exit 1
     fi
 }
 
@@ -146,6 +169,11 @@ step_4_setup_profiles() {
     if [[ -f "$SETUP_DIR/config.yaml" ]]; then
         cp "$SETUP_DIR/config.yaml" "$HERMES_HOME/config.yaml"
         log_success "Copied config.yaml"
+    fi
+
+    # Fix config parse error: personalities should be null, not empty map
+    if [[ -f "$HERMES_HOME/config.yaml" ]]; then
+        sed -i 's/personalities: {}/personalities: null/' "$HERMES_HOME/config.yaml"
     fi
 
     # Copy SOUL.md and SESSION.md
