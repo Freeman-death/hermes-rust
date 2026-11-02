@@ -171,9 +171,23 @@ step_4_setup_profiles() {
         log_success "Copied config.yaml"
     fi
 
-    # Fix config parse error: personalities should be null, not empty map
+    # Fix config parse errors for Rust parser
     if [[ -f "$HERMES_HOME/config.yaml" ]]; then
+        # Fix personalities: {} -> null
         sed -i 's/personalities: {}/personalities: null/' "$HERMES_HOME/config.yaml"
+        # Fix model: map -> string (extract default value)
+        python3 -c "
+import re
+with open('$HERMES_HOME/config.yaml') as f:
+    content = f.read()
+# Replace multi-line model block with single string
+m = re.search(r'model:\n  (?:base_url: .*\n)?  default: (.+)\n  provider: (.+)', content)
+if m:
+    model_name = m.group(1).strip()
+    content = re.sub(r'model:\n  (?:base_url: .*\n)?  default: .+\n  provider: .+', 'model: ' + model_name, content)
+with open('$HERMES_HOME/config.yaml', 'w') as f:
+    f.write(content)
+" 2>/dev/null || true
     fi
 
     # Copy SOUL.md and SESSION.md
