@@ -103,38 +103,15 @@ step_2_rust() {
 #--- Step 3: Clone and build hermes-rs-test -------------------------------------
 
 step_3_build() {
-    log_info "Step 3: Cloning and building hermes-rs-test..."
-
-    # Clone the repo
-    if [[ ! -d "$CRAFTS_DIR/hermes-rs-test" ]]; then
-        mkdir -p "$CRAFTS_DIR"
-        log_info "Cloning hermes-rs-test from GitHub..."
-        git clone "$HERMES_REPO" "$CRAFTS_DIR/hermes-rs-test"
-        log_success "Repository cloned."
-    else
-        log_info "Repository already exists. Pulling latest changes..."
-        cd "$CRAFTS_DIR/hermes-rs-test"
-        git pull origin main
-        cd - > /dev/null
-    fi
-
-    # Build the project
-    log_info "Building hermes (this may take 5-15 minutes on M1)..."
-    cd "$CRAFTS_DIR/hermes-rs-test"
-
-    # Check if we're already built
-    if [[ -f "target/release/hermes" ]]; then
-        log_warn "Existing build found. Rebuilding..."
-    fi
-
-    cargo build --release -p hermes-cli
-    cd - > /dev/null
-
+    log_info "Step 3: Setting up profiles (no Rust build needed)..."
+    log_warn "Rust source is not included in this setup repo."
+    log_warn "To build Hermes Rust from source, clone the Rust source repo separately"
+    log_warn "and run: cargo build --release -p hermes-cli"
+    log_warn "Then copy the binary to $BIN_DIR/hermes"
     if [[ -f "$CRAFTS_DIR/hermes-rs-test/target/release/hermes" ]]; then
-        log_success "Hermes binary built successfully."
+        log_success "Pre-built binary found at $CRAFTS_DIR/hermes-rs-test/target/release/hermes"
     else
-        log_error "Build failed. Check your internet connection and try again."
-        exit 1
+        log_warn "No pre-built binary found. Skipping build step."
     fi
 }
 
